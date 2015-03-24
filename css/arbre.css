@@ -1,0 +1,11 @@
+body{
+    background-color: #d9cfcf;
+}
+
+th {
+    background-color: white;
+}
+
+th.key-date{
+    background-color: silver;
+}

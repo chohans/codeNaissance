@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"></meta>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"></link>
+    <link type="text/css" rel="stylesheet" href="css/select2.css"></link>
+    <link type="text/css" rel="stylesheet" href="css/arbre.css"></link>
+</head>
+
+<body>
+    <main class="container">
+
+        <h1>Arbre</h1>
+        <input type="hidden" id="patients"></input>
+        <hr>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th id="moins9" class="key-date"></th>
+                    <th>Projet</th>
+                    <th id="conception" class="key-date"></th>
+                    <th>Réalisation</th>
+                    <th id="naissance" class="key-date"></th>
+                    <th>Concrétisation</th>
+                    <th id="plus9" class="key-date"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </main>
+
+
+
+
+
+
+    <script src="js/moment.min.js"></script>
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/underscore-min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/jstorage.js"></script>
+    <script src="js/sommeDate.js"></script>
+    <script>
+        var formatDate = function (date) {
+            return date.format("DD/MM/YYYY");
+        };
+
+        var formatSomme = function (somme) {
+            return " (" + somme + ")";
+        }
+
+        var changePatient = function (patient) {
+            var naissance = moment(patient.naissance, "DD/MM/YYYY");
+            var conception = moment(naissance).subtract(9, "month");
+            var conceptionMoins9 = moment(conception).subtract(9, "months");
+            var plus9mois = moment(naissance).add(9, "months");
+
+            var sommeNaissance = sommeDate(naissance);
+            var sommeConception = sommeDate(conception);
+            var sommeConceptionMoins9 = sommeDate(conceptionMoins9);
+            var sommePlus9mois = sommeDate(plus9mois);
+
+            /*console.log("Somme Naissance ->", formatDate(naissance), ":", sommeNaissance);
+            console.log("Somme Conception ->", formatDate(conception), ":", sommeConception);
+            console.log("Somme Naissance ->", formatDate(conceptionMoins9), ":", sommeConceptionMoins9);
+            console.log("Somme Naissance ->", formatDate(plus9mois), ":", sommePlus9mois);*/
+
+            $("#moins9").text(formatDate(conceptionMoins9) + formatSomme(sommeConceptionMoins9));
+            $("#conception").text(formatDate(conception) + formatSomme(sommeConception));
+            $("#naissance").text(formatDate(naissance) + formatSomme(sommeNaissance));
+            $("#plus9").text(formatDate(plus9mois) + formatSomme(sommePlus9mois));
+        };
+
+
+        $("#patients").select2({
+            placeholder: "Selectionner un patient",
+            data: _.map($.jStorage.index(), function (patient) {
+                return {
+                    id: patient,
+                    text: patient
+                }
+            })
+        });
+        
+        $("#patients").on("change", function(selection){
+            var patient = $.jStorage.get(selection.val);
+            changePatient(patient);
+        });
+
+    </script>
+</body>
+
+</html>
