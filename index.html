@@ -10,34 +10,47 @@
 
 <body>
     <main class="container">
-
-        <h1>Code de Naissance</h1>
-        <input type="hidden" id="patients"></input>
-        <hr>
-
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th id="moins9" class="key-date"></th>
-                    <th>Projet</th>
-                    <th id="conception" class="key-date"></th>
-                    <th>Réalisation</th>
-                    <th id="naissance" class="key-date"></th>
-                    <th>Concrétisation</th>
-                    <th id="plus9" class="key-date"></th>
-                </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
+<div class="row">
+            <h1>Code de Naissance</h1>
+            <input type="hidden" id="patients"></input>
+            <button id="newPatient" class="btn btn-primary btn-xs" type="button">+</button>
+        </div>
+        <div id="newPatientContainer" style="display:none;" class="row">
+            <hr>
+            <div class="col-md-4">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Nom</label>
+                        <input type="text" class="form-control" id="name" placeholder="Nom...">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Date de naissance</label>
+                        <input type="date" class="form-control" id="birthdate" placeholder="Password">
+                    </div>
+                    <button id="createNewPatient" type="button" class="btn btn-default btn-primary">Créer</button>
+                    <button id="cancelNewPatient" type="button" class="btn btn-default">Annuler</button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <hr>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th id="moins9" class="key-date"></th>
+                        <th>Projet</th>
+                        <th id="conception" class="key-date"></th>
+                        <th>Réalisation</th>
+                        <th id="naissance" class="key-date"></th>
+                        <th>Concrétisation</th>
+                        <th id="plus9" class="key-date"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </main>
-
-
-
-
-
-
     <script src="js/moment.min.js"></script>
     <script src="js/jquery-1.11.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -46,52 +59,87 @@
     <script src="js/jstorage.js"></script>
     <script src="js/sommeDate.js"></script>
     <script>
-        var formatDate = function (date) {
-            return date.format("DD/MM/YYYY");
+    var formatDate = function(date) {
+        return date.format("DD/MM/YYYY");
+    };
+
+    var formatSomme = function(somme) {
+        return " (" + somme + ")";
+    }
+
+    var changePatient = function(patient) {
+        var naissance = moment(patient.naissance, "YYYY-MM-DD");
+        var conception = moment(naissance).subtract(9, "month");
+        var conceptionMoins9 = moment(conception).subtract(9, "months");
+        var plus9mois = moment(naissance).add(9, "months");
+
+        var sommeNaissance = sommeDate(naissance);
+        var sommeConception = sommeDate(conception);
+        var sommeConceptionMoins9 = sommeDate(conceptionMoins9);
+        var sommePlus9mois = sommeDate(plus9mois);
+
+        /*console.log("Somme Naissance ->", formatDate(naissance), ":", sommeNaissance);
+        console.log("Somme Conception ->", formatDate(conception), ":", sommeConception);
+        console.log("Somme Naissance ->", formatDate(conceptionMoins9), ":", sommeConceptionMoins9);
+        console.log("Somme Naissance ->", formatDate(plus9mois), ":", sommePlus9mois);*/
+
+        $("#moins9").text(formatDate(conceptionMoins9) + formatSomme(sommeConceptionMoins9));
+        $("#conception").text(formatDate(conception) + formatSomme(sommeConception));
+        $("#naissance").text(formatDate(naissance) + formatSomme(sommeNaissance));
+        $("#plus9").text(formatDate(plus9mois) + formatSomme(sommePlus9mois));
+    };
+
+    var $patients = $("#patients");
+
+    $patients.select2({
+        placeholder: "Selectionner un patient",
+        data: _.map($.jStorage.index(), function(patient) {
+            return {
+                id: patient,
+                text: patient
+            }
+        })
+    });
+
+    $patients.on("change", function(selection) {
+        var patient = $.jStorage.get(selection.val);
+        changePatient(patient);
+    });
+
+    var $newPatientContainer = $("#newPatientContainer");
+
+    $("#newPatient").click(function() {
+        $newPatientContainer.show();
+    });
+
+    var $name = $("#name");
+    var $birthdate = $("#birthdate");
+    $("#createNewPatient").click(function() {
+        var patient = {
+            name: $name.val(),
+            birthdate: $birthdate.val()
         };
 
-        var formatSomme = function (somme) {
-            return " (" + somme + ")";
-        }
+        $.jStorage.set(patient.name, patient);
+        $name.val(null);
+        $birthdate.val(null);
 
-        var changePatient = function (patient) {
-            var naissance = moment(patient.naissance, "DD/MM/YYYY");
-            var conception = moment(naissance).subtract(9, "month");
-            var conceptionMoins9 = moment(conception).subtract(9, "months");
-            var plus9mois = moment(naissance).add(9, "months");
+        $newPatientContainer.hide();
 
-            var sommeNaissance = sommeDate(naissance);
-            var sommeConception = sommeDate(conception);
-            var sommeConceptionMoins9 = sommeDate(conceptionMoins9);
-            var sommePlus9mois = sommeDate(plus9mois);
-
-            /*console.log("Somme Naissance ->", formatDate(naissance), ":", sommeNaissance);
-            console.log("Somme Conception ->", formatDate(conception), ":", sommeConception);
-            console.log("Somme Naissance ->", formatDate(conceptionMoins9), ":", sommeConceptionMoins9);
-            console.log("Somme Naissance ->", formatDate(plus9mois), ":", sommePlus9mois);*/
-
-            $("#moins9").text(formatDate(conceptionMoins9) + formatSomme(sommeConceptionMoins9));
-            $("#conception").text(formatDate(conception) + formatSomme(sommeConception));
-            $("#naissance").text(formatDate(naissance) + formatSomme(sommeNaissance));
-            $("#plus9").text(formatDate(plus9mois) + formatSomme(sommePlus9mois));
-        };
-
-
-        $("#patients").select2({
+        $patients.select2({
             placeholder: "Selectionner un patient",
-            data: _.map($.jStorage.index(), function (patient) {
+            data: _.map($.jStorage.index(), function(patient) {
                 return {
                     id: patient,
                     text: patient
                 }
             })
         });
-        
-        $("#patients").on("change", function(selection){
-            var patient = $.jStorage.get(selection.val);
-            changePatient(patient);
-        });
+    });
 
+    $("#cancelNewPatient").click(function() {
+        $newPatientContainer.hide();
+    });
     </script>
 </body>
 
