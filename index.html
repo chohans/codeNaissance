@@ -10,55 +10,55 @@
 
 <body>
     <main class="container">
-<div class="row">
+        <div class="row">
             <h1>Code de Naissance</h1>
             <input type="hidden" id="patients"></input>
-            <button id="newPatient" class="btn btn-primary btn-xs" type="button">+</button>
+        <button id="newPatient" class="btn btn-primary btn-xs" type="button">+</button>
         </div>
-        <div id="newPatientContainer" style="display:none;" class="row">
-            <hr>
-            <div class="col-md-4">
-                <form>
-                    <div class="form-group">
-                        <label for="name">Nom</label>
-                        <input type="text" class="form-control" id="name" placeholder="Nom...">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Date de naissance</label>
-                        <input type="date" class="form-control" id="birthdate" placeholder="Password">
-                    </div>
-                    <button id="createNewPatient" type="button" class="btn btn-default btn-primary">Créer</button>
-                    <button id="cancelNewPatient" type="button" class="btn btn-default">Annuler</button>
-                </form>
-            </div>
+    <div id="newPatientContainer" style="display:none;" class="row">
+        <hr>
+        <div class="col-md-4">
+            <form>
+                <div class="form-group">
+                    <label for="name">Nom</label>
+                    <input type="text" class="form-control" id="name" placeholder="Nom...">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Date de naissance</label>
+                    <input type="date" class="form-control" id="birthdate" placeholder="Password">
+                </div>
+                <button id="createNewPatient" type="button" class="btn btn-default btn-primary">Créer</button>
+                <button id="cancelNewPatient" type="button" class="btn btn-default">Annuler</button>
+            </form>
         </div>
-        <div class="row">
-            <hr>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th id="moins9" class="key-date"></th>
-                        <th>Projet</th>
-                        <th id="conception" class="key-date"></th>
-                        <th>Réalisation</th>
-                        <th id="naissance" class="key-date"></th>
-                        <th>Concrétisation</th>
-                        <th id="plus9" class="key-date"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
+    </div>
+    <div class="row">
+        <hr>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th id="moins9" class="key-date"></th>
+                    <th>Projet</th>
+                    <th id="conception" class="key-date"></th>
+                    <th>Réalisation</th>
+                    <th id="naissance" class="key-date"></th>
+                    <th>Concrétisation</th>
+                    <th id="plus9" class="key-date"></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
     </main>
-    <script src="js/moment.min.js"></script>
-    <script src="js/jquery-1.11.2.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/underscore-min.js"></script>
-    <script src="js/select2.min.js"></script>
-    <script src="js/jstorage.js"></script>
-    <script src="js/sommeDate.js"></script>
-    <script>
+<script src="js/moment.min.js"></script>
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/underscore-min.js"></script>
+<script src="js/select2.min.js"></script>
+<script src="js/jstorage.js"></script>
+<script src="js/sommeDate.js"></script>
+<script>
     var formatDate = function(date) {
         return date.format("DD/MM/YYYY");
     };
@@ -140,7 +140,7 @@
     $("#cancelNewPatient").click(function() {
         $newPatientContainer.hide();
     });
-    </script>
+</script>
 </body>
 
 </html>
