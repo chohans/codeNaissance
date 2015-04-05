@@ -84,6 +84,7 @@ $(function(){
  *  des 4 jours cibles et des 4 ans cibles
  */
     var changePatient = function(patient){
+        var nom = voyelleConsonne(patient.name);
         var naissance = formatDate(moment(patient.birthdate));
         var keyN = formatKey(calculCle(naissance));
         var anCibleN = calculYear(naissance);
@@ -97,6 +98,11 @@ $(function(){
         var KeyP9 = formatKey(calculCle(p9));
         var anCibleP9 = calculYear(p9);
 
+    /*
+     *  complete le sous titre par le nom de la personne consultée
+     */
+        $("h2").text("Thème");
+        $("h2").append(nom);
     /*
      *  Ecriture des 4 date fondatrices
      */

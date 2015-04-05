@@ -115,3 +115,17 @@ function add(nombre)
 
     return total;
 }
+
+function voyelleConsonne(nom)
+{
+    var initiale = nom[0];
+    if(initiale == "A" || initiale == "E" || initiale == "I" || initiale == "O" ||
+       initiale == "U" || initiale == "Y"){
+        nom = " d' "+ nom;
+    }
+    else{
+        nom = " de " + nom;
+    }
+
+    return nom;
+}
