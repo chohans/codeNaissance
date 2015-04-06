@@ -120,7 +120,7 @@ function voyelleConsonne(nom)
 {
     nom = nom.toLowerCase();
     var initiale = nom[0];
-    if(initiale == "a" || initiale == "e" || initiale == "i" || initiale == "oO" ||
+    if(initiale == "a" || initiale == "e" || initiale == "i" || initiale == "o" ||
        initiale == "u" || initiale == "y" || initiale == "é" || initiale == "è"){
         nom = " d' "+ nom;
     }
