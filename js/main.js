@@ -101,8 +101,8 @@ $(function(){
     /*
      *  complete le sous titre par le nom de la personne consultée
      */
-        $("h2").text("Thème");
-        $("h2").append(nom);
+        $("#theme").text("Thème").append(nom);
+
     /*
      *  Ecriture des 4 date fondatrices
      */
