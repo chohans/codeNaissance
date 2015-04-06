@@ -86,16 +86,16 @@ $(function(){
     var changePatient = function(patient){
         var nom = voyelleConsonne(patient.name);
         var naissance = formatDate(moment(patient.birthdate));
-        var keyN = formatKey(calculCle(naissance));
+        var keyN = calculCle(naissance); // calcul clé de naissance
         var anCibleN = calculYear(naissance);
         var conception = formatDate(moment(patient.birthdate).subtract(9, "M"));
-        var KeyC = formatKey(calculCle(conception));
+        var KeyC = calculCle(conception); // calcul clé de conception
         var anCibleC = calculYear(conception);
         var m9 = formatDate(moment(patient.birthdate).subtract(18, "M"));
-        var KeyM9 = formatKey(calculCle(m9));
+        var KeyM9 = calculCle(m9); // calcul clé de -9 mois
         var anCibleM9 = calculYear(m9);
         var p9 = formatDate(moment(patient.birthdate).add(9, "M"));
-        var KeyP9 = formatKey(calculCle(p9));
+        var KeyP9 = calculCle(p9); // calcul clé de +9 mois
         var anCibleP9 = calculYear(p9);
 
     /*
@@ -113,10 +113,10 @@ $(function(){
      /*
      *  Ecriture des 4 clés
      */
-        $("#keyN").text(keyN);
-        $("#keyC").text(KeyC);
-        $("#key-9").text(KeyM9);
-        $("#keyP9").text(KeyP9);
+        $("#keyN").text(formatKey(keyN));
+        $("#keyC").text(formatKey(KeyC));
+        $("#key-9").text(formatKey(KeyM9));
+        $("#keyP9").text(formatKey(KeyP9));
     /*
      *  Ecriture des 4 jours cibles
      */
