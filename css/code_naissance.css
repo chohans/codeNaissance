@@ -35,7 +35,7 @@ h2{
 .anCibles{
     background-color: #d8d8d8;
 }
-td, th{
+td, th, .infoArbre{
     text-align: center;
 }
 
