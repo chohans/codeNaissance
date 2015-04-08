@@ -122,11 +122,47 @@ function voyelleConsonne(nom)
     var initiale = nom[0];
     if(initiale == "a" || initiale == "e" || initiale == "i" || initiale == "o" ||
        initiale == "u" || initiale == "y" || initiale == "é" || initiale == "è"){
-        nom = " d' "+ nom;
+        nom = " d' " + capitalize(nom);
     }
     else{
-        nom = " de " + nom;
+        nom = " de " + capitalize(nom);
     }
 
     return nom;
 }
+
+function capitalize(texte)
+{
+    return texte.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
+function testTrimestre (date)
+{
+    var mois = moment(date).month() + 1; // date.month récupere l'indice du mois
+
+    if(mois>=1 && mois<4){
+        return "Clé de Préparation (Hiver): ";
+    }
+    else if(mois>=4 && mois<7){
+        return "Clé de Détermination (Printemps): ";
+    }
+    else if(mois>=7 && mois<10){
+        return "Clé d'Aboutissement (Eté): ";
+    }
+    else {
+        return "Clé d'Œuvre (Automne): ";
+    }
+}
+
+/*
+ *  teste si le nombre est supérieur a 9
+ */
+function sup9(nombre)
+{
+    if(nombre>9){
+        nombre=addPlus(nombre); // nombre sup a 9 donc faire une addition
+    }
+
+    return nombre;
+}
+
