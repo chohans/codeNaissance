@@ -78,6 +78,7 @@ $(function(){
         changePatient(patient); // envoie des données du patients
     });
 
+    moment.lang('fr');
     //        Object {name: "tonio", birthdate: "1963-05-17"}
 /*
  *  Calcul des 3 autrees dates de la personne choisie et des 4 clés
@@ -86,6 +87,7 @@ $(function(){
     var changePatient = function(patient){
         var nom = voyelleConsonne(patient.name);
         var naissance = formatDate(moment(patient.birthdate));
+        var cleSaison = testTrimestre(patient.birthdate); // Pour récuperer la clé du trimestre
         var keyN = calculCle(naissance); // calcul clé de naissance
         var anCibleN = calculYear(naissance);
         var conception = formatDate(moment(patient.birthdate).subtract(9, "M"));
@@ -110,7 +112,7 @@ $(function(){
         $("#cDate").text(conception);
         $("#m9Date").text(m9);
         $("#p9Date").text(p9);
-     /*
+    /*
      *  Ecriture des 4 clés
      */
         $("#keyN").text(formatKey(keyN));
@@ -132,6 +134,39 @@ $(function(){
         $("#anCible-9").text(anCibleM9[0]);
         $("#anCibleP9").text(anCibleP9[0]);
 
+        var nbCleSaison = KeyM9[1] + " " + KeyC[1] + " " + keyN[1] + " " + KeyP9[1];
+        $("#cleSaison").text(cleSaison + nbCleSaison);
+        $("#complements").text(" né(e) le : ");
+        $("#complements").prepend(nom).append(moment(patient.birthdate).format("dddd D MMMM YYYY"));
+    /*
+     *  Ecriture des 4 clés dans l'arbre des clés
+     */
+        $("#cleMoins9").text(KeyM9[1]);
+        $("#cleConception").text(KeyC[1]);
+        $("#cleNaissance").text(keyN[1]);
+        $("#clePlus9").text(KeyP9[1]);
+
+        var totalEssence = KeyM9[1] + KeyC[1] + keyN[1] + KeyP9[1],
+            totalTriangleP = parseInt(sup9(KeyM9[1] + KeyC[1])),
+            totalTriangleR = parseInt(sup9(KeyC[1] + keyN[1])),
+            totalTriangleC = parseInt(sup9(keyN[1] + KeyP9[1])),
+            totalTransformation = totalTriangleP + totalTriangleR + totalTriangleC,
+            totalIncarnation1 = sup9(totalTriangleP + totalTriangleR),
+            totalIncarnation2 = sup9(totalTriangleC + totalTriangleR),
+            totalIncarnation = sup9(totalIncarnation1 + totalIncarnation2),
+            totalSommeInterne = sup9(KeyC[1] + keyN[1]),
+            totalValeurSupreme =sup9(KeyM9[1] + KeyP9[1]);
+
+        $("#essence").text(totalEssence+"/"+addPlus(totalEssence));
+        $("#triangleP").text(totalTriangleP);
+        $("#triangleR").text(totalTriangleR);
+        $("#triangleC").text(totalTriangleC);
+        $("#transformation").text(totalTransformation + "/" + addPlus(totalTransformation));
+        $("#accordIncarnation1").text(totalIncarnation1);
+        $("#accordIncarnation2").text(totalIncarnation2);
+        $("#incarnation").text(totalIncarnation);
+        $("#sommeInterne").text(totalSommeInterne);
+        $("#valAbsolue").text(totalValeurSupreme);
     }
 
     /*
@@ -149,6 +184,13 @@ $(function(){
 
         return cle.join("/");
     }
+
+    $("#btnArbre").click(function(){
+        $("#arbreContainer").toggle("slow");
+    } );
+
+
+
 });
 
 
