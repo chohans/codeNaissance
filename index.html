@@ -66,10 +66,10 @@
                         <td id="keyP9" class="cle">?</td>
                     </tr>
                     <tr>
-                        <td id="jourCible-9" class="lesCibles">j?</td>
-                        <td id="jourCibleC" class="lesCibles">j?</td>
-                        <td id="jourCibleN" class="lesCibles">j?</td>
-                        <td id="jourCibleP9" class="lesCibles">j?</td>
+                        <td id="jourCible-9" class="lesCibles">?jour?</td>
+                        <td id="jourCibleC" class="lesCibles">?jour?</td>
+                        <td id="jourCibleN" class="lesCibles">?jour?</td>
+                        <td id="jourCibleP9" class="lesCibles">?jour?</td>
                     </tr>
                     <tr>
                         <td id="anCible-9" class="anCibles">an?</td>
@@ -87,22 +87,164 @@
             </table>
             <table class="table">
                 <tr>
-                    <th></th>
-                    <th>porojet</th>
-                    <th>réalisation</th>
-                    <th>concrétisation</th>
+                    <td></td>
+                    <th class="prc">porojet</th>
+                    <th class="prc">réalisation</th>
+                    <th class="prc">concrétisation</th>
                     <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td id="projet" class="prc">Evenements Projet</td>
-                    <td id="reali" class="prc">Evenements Réalisation</td>
-                    <td id="concret" class="prc">Evenements Concrétisation</td>
+                    <td id="projet" class="evenPrc">Evenements Projet</td>
+                    <td id="reali" class="evenPrc">Evenements Réalisation</td>
+                    <td id="concret" class="evenPrc">Evenements Concrétisation</td>
                     <td></td>
                 </tr>
             </table>
             <div class="row infoArbre">
-                <button type="button" class="btn btn-success">Info Arbre</button>
+                <button id="btnArbre" type="button" class="btn btn-success">Info Arbre</button>
+            </div>
+            <div id="arbreContainer" class="row" style="display:none;">
+                <div class="row titreArbre">
+                    <h2 id="cleSaison"></h2>
+                    <h2 id="complements"></h2>
+                </div>
+                <div class="row">
+                    <table class="tab ">
+                        <tr class="r1">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="valAbsolue" class="clair">1/4</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="r2">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="r3">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="sommeInterne" class="clair">3/4</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="r4">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="r5">
+                            <td id="cleMoins9" class="clair">5/1</td>
+                            <td></td>
+                            <td id="cleConception" class="clair">5/3</td>
+                            <td></td>
+                            <td id="cleNaissance" class="clair">5/5</td>
+                            <td></td>
+                            <td id="clePlus9" class="clair">5/7</td>
+                            <td class="inter"></td>
+                            <td class="inter"></td>
+                            <td id="essence" class="clair bout">5/10</td>
+                        </tr>
+                        <tr class="r6">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="r7">
+                            <td></td>
+                            <td id="triangleP" class="clair">7/2</td>
+                            <td></td>
+                            <td id="triangleR" class="clair">7/4</td>
+                            <td></td>
+                            <td id="triangleC" class="clair">7/6</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="transformation" class="clair bout">7/10</td>
+                        </tr>
+                        <tr class="r8">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="r9">
+                            <td></td>
+                            <td></td>
+                            <td id="accordIncarnation1" class="clair incarnation">9/3</td>
+                            <td></td>
+                            <td id="accordIncarnation2" class="clair incarnation">9/5</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="r10">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="r11">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="incarnation" class="clair incarnation">11/5</td>
+                            <td ></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         </main>
@@ -113,6 +255,7 @@
     <script src="js/underscore-min.js"></script>
     <script src="js/jstorage.js"></script>
     <script src="js/moment.min.js"></script>
+    <script src="js/moment-with-locales.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/fonctions_code_naissance.js"></script>
     </body>
