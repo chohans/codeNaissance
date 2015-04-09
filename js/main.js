@@ -146,7 +146,7 @@ $(function(){
         $("#cleNaissance").text(keyN[1]);
         $("#clePlus9").text(KeyP9[1]);
 
-        var totalEssence = KeyM9[1] + KeyC[1] + keyN[1] + KeyP9[1],
+        var totalEssence = sup9(KeyM9[1] + KeyC[1] + keyN[1] + KeyP9[1]),
             totalTriangleP = parseInt(sup9(KeyM9[1] + KeyC[1])),
             totalTriangleR = parseInt(sup9(KeyC[1] + keyN[1])),
             totalTriangleC = parseInt(sup9(keyN[1] + KeyP9[1])),
@@ -157,14 +157,14 @@ $(function(){
             totalSommeInterne = sup9(KeyC[1] + keyN[1]),
             totalValeurSupreme =sup9(KeyM9[1] + KeyP9[1]);
 
-        $("#essence").text(totalEssence+"/"+addPlus(totalEssence));
+        $("#essence").text(totalEssence[1]+"/"+totalEssence[0]);
         $("#triangleP").text(totalTriangleP);
         $("#triangleR").text(totalTriangleR);
         $("#triangleC").text(totalTriangleC);
         $("#transformation").text(totalTransformation + "/" + addPlus(totalTransformation));
         $("#accordIncarnation1").text(totalIncarnation1);
         $("#accordIncarnation2").text(totalIncarnation2);
-        $("#incarnation").text(totalIncarnation);
+        $("#incarnation").text(totalIncarnation[0]);
         $("#sommeInterne").text(totalSommeInterne);
         $("#valAbsolue").text(totalValeurSupreme);
     }
