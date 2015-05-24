@@ -2,16 +2,16 @@
  * Main début du programme
  */
 
-$(function(){
+$(function() {
 
-/*
- * Initialise le selecteur et charge les donnée du local storage
- */
+    /*
+     * Initialise le selecteur et charge les donnée du local storage
+     */
     var $patients = $("#patients");
     $patients.select2({
         placeholder: "Choissir un patient",
         allowClear: true,
-        data: _.map($.jStorage.index(), function(nomPatient){
+        data: _.map($.jStorage.index(), function(nomPatient) {
             return {
                 id: nomPatient,
                 text: nomPatient
@@ -19,7 +19,7 @@ $(function(){
         })
     });
 
-    $("#newPatient").click(function(){
+    $("#newPatient").click(function() {
         $("#newPatientContainer").toggle("slow");
     });
 
@@ -31,13 +31,13 @@ $(function(){
     var $name = $("#name");
     var $birthdate = $("#birthdate");
 
-    $("#createNewPatient").click(function(){
+    $("#createNewPatient").click(function() {
         var patient = {
             name: $name.val(),
             birthdate: $birthdate.val()
         };
 
-        $.jStorage.set(patient.name, patient) // Mets les données dans le local storage
+        savePatient(patient); // Mets les données dans le local storage
 
         // efface le contenu de l'input nom et date'
         $name.val(null);
@@ -46,13 +46,13 @@ $(function(){
         $("#newPatientContainer").hide("slow"); // referme le formulaire automatiquement
 
         /*
-        * réactualise la liste des noms des patients
-        */
+         * réactualise la liste des noms des patients
+         */
 
         $patients.select2({
             placeholder: "Choissir un patient",
             allowClear: true,
-            data: _.map($.jStorage.index(), function(nomPatient){
+            data: _.map($.jStorage.index(), function(nomPatient) {
                 return {
                     id: nomPatient,
                     text: nomPatient
@@ -61,18 +61,20 @@ $(function(){
         });
     });
 
+
+
     /*
      *  En cliquant sur le bouton 'annuler' le formulaire se referme
      */
 
-    $("#cancelNewPatient").click(function(){
+    $("#cancelNewPatient").click(function() {
         $("#newPatientContainer").hide("slow");
-    } );
+    });
 
     /*
- *  selection d'un autre nom dans la liste disponible
- */
-    $patients.on("change", function(selection){
+     *  selection d'un autre nom dans la liste disponible
+     */
+    $patients.on("change", function(selection) {
         var patient = $.jStorage.get(selection.val);
 
         changePatient(patient); // envoie des données du patients
@@ -80,11 +82,13 @@ $(function(){
 
     moment.lang('fr');
     //        Object {name: "tonio", birthdate: "1963-05-17"}
-/*
- *  Calcul des 3 autrees dates de la personne choisie et des 4 clés
- *  des 4 jours cibles et des 4 ans cibles
- */
-    var changePatient = function(patient){
+    /*
+     *  Calcul des 3 autrees dates de la personne choisie et des 4 clés
+     *  des 4 jours cibles et des 4 ans cibles
+     */
+    var changePatient = function(patient) {
+        window.codeNaissance.currentPatient = patient;
+
         var nom = voyelleConsonne(patient.name);
         var naissance = formatDate(moment(patient.birthdate));
         var cleSaison = testTrimestre(patient.birthdate); // Pour récuperer la clé du trimestre
@@ -100,35 +104,35 @@ $(function(){
         var KeyP9 = calculCle(p9); // calcul clé de +9 mois
         var anCibleP9 = calculYear(p9);
 
-    /*
-     *  complete le sous titre par le nom de la personne consultée
-     */
+        /*
+         *  complete le sous titre par le nom de la personne consultée
+         */
         $("#theme").text("Thème").append(nom);
 
-    /*
-     *  Ecriture des 4 date fondatrices
-     */
+        /*
+         *  Ecriture des 4 date fondatrices
+         */
         $("#nDate").text(naissance);
         $("#cDate").text(conception);
         $("#m9Date").text(m9);
         $("#p9Date").text(p9);
-    /*
-     *  Ecriture des 4 clés
-     */
+        /*
+         *  Ecriture des 4 clés
+         */
         $("#keyN").text(formatKey(keyN));
         $("#keyC").text(formatKey(KeyC));
         $("#key-9").text(formatKey(KeyM9));
         $("#keyP9").text(formatKey(KeyP9));
-    /*
-     *  Ecriture des 4 jours cibles
-     */
+        /*
+         *  Ecriture des 4 jours cibles
+         */
         $("#jourCibleN").text(anCibleN[1]);
         $("#jourCibleC").text(anCibleC[1]);
         $("#jourCible-9").text(anCibleM9[1]);
         $("#jourCibleP9").text(anCibleP9[1]);
-    /*
-     *  Ecriture des 4 ans cibles
-     */
+        /*
+         *  Ecriture des 4 ans cibles
+         */
         $("#anCibleN").text(anCibleN[0]);
         $("#anCibleC").text(anCibleC[0]);
         $("#anCible-9").text(anCibleM9[0]);
@@ -138,9 +142,9 @@ $(function(){
         $("#cleSaison").text(cleSaison + nbCleSaison);
         $("#complements").text(" né(e) le : ");
         $("#complements").prepend(nom).append(moment(patient.birthdate).format("dddd D MMMM YYYY"));
-    /*
-     *  Ecriture des 4 clés dans l'arbre des clés
-     */
+        /*
+         *  Ecriture des 4 clés dans l'arbre des clés
+         */
         $("#cleMoins9").text(KeyM9[1]);
         $("#cleConception").text(KeyC[1]);
         $("#cleNaissance").text(keyN[1]);
@@ -155,9 +159,9 @@ $(function(){
             totalIncarnation2 = sup9(totalTriangleC + totalTriangleR),
             totalIncarnation = sup9(totalIncarnation1 + totalIncarnation2),
             totalSommeInterne = sup9(KeyC[1] + keyN[1]),
-            totalValeurSupreme =sup9(KeyM9[1] + KeyP9[1]);
+            totalValeurSupreme = sup9(KeyM9[1] + KeyP9[1]);
 
-        $("#essence").text(totalEssence+"/"+ (sup9(totalEssence))[0]);
+        $("#essence").text(totalEssence + "/" + (sup9(totalEssence))[0]);
         $("#triangleP").text(totalTriangleP);
         $("#triangleR").text(totalTriangleR);
         $("#triangleC").text(totalTriangleC);
@@ -169,27 +173,34 @@ $(function(){
         $("#valAbsolue").text(totalValeurSupreme);
     }
 
+    var savePatient = function(patient) {
+        $.jStorage.set(patient.name, patient);
+    };
+
+    // On définit un objet gloabl pour stocker des trucs à partager entre nos
+    // différents scripts
+    window.codeNaissance = {
+        currentPatient: null,
+        savePatient: savePatient
+    };
+
+
     /*
      *  formatage final de la date
      */
-    var formatDate = function(date)
-    {
-        return date.format("D/M/YYYY");
-    }
-    /*
-     *  formatage final de la clé de naissance
-     */
-    var formatKey = function(cle)
-    {
+    var formatDate = function(date) {
+            return date.format("D/M/YYYY");
+        }
+        /*
+         *  formatage final de la clé de naissance
+         */
+    var formatKey = function(cle) {
 
         return cle.join("/");
     }
 
-    $("#btnArbre").click(function(){
+    $("#btnArbre").click(function() {
         $("#arbreContainer").toggle("slow");
-    } );
+    });
 
 });
-
-
-

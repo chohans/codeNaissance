@@ -19,8 +19,7 @@
 
             </header>
             <div class="row">
-
-                <input type="hidden" id="patients"></input>
+                <input type="hidden" id="patients">
             <button id="newPatient" class="btn btn-primary btn-xs" type="button">+</button>
             </div>
         <br>
@@ -43,6 +42,9 @@
         </div>
         <br>
         <div class="row">
+            <button id="addEvent" class="btn btn-primary pull-right" type="button">Ajouter un évènement...</button>
+            <br>
+            <br>
             <table class="table">
                 <thead>
                     <tr>
@@ -247,7 +249,29 @@
                 </div>
             </div>
         </div>
-        </main>
+    </main>
+    <div id="newEvent" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Ajouter un évènement</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="eventName">Nom</label>
+                <input class="form-control" id="eventName" placeholder="Nom de l'évènement">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button id="saveEvent" type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <script src="js/jquery-1.11.2.min.js"></script>
     <script src="js/select2.min.js"></script>
     <script src="js/select2_locale_fr.js"></script>
@@ -257,6 +281,7 @@
     <script src="js/moment.min.js"></script>
     <script src="js/moment-with-locales.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/addEvent.js"></script>
     <script src="js/fonctions_code_naissance.js"></script>
     </body>
 </html>
